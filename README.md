@@ -1,6 +1,6 @@
 # ThermodX
 # 1.3 Beta Update is here!
-# This is beta program so that means its not the final version
+### This is beta program so that means its not the final version
 
 ## Description
 ThermodX is an modded thermal engine for some specific devices 
