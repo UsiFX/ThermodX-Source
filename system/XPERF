@@ -1,5 +1,8 @@
-#ThermodX 1301 R Beta program
 #!/system/bin/sh
+#ThermodX 1301 R Beta program
+
+# sync to data before applying in case system crashes
+sync
 
 # Reducing Some System load
 echo "[*] Reducing system loads..." > /storage/emulated/0/XCORE/TX.log
@@ -53,11 +56,9 @@ echo 0 > /proc/sys/vm/oom_dump_tasks
 for queue in /sys/block/*/queue; do
    echo 0 > "${queue}"/add_random
    echo 0 > "${queue}"/iostats
-   echo 1 > "${queue}"/nomerges
    echo 1 > "${queue}"/rq_affinity
    echo 0 > "${queue}"/rotational
    echo 0 > "${queue}"/iosched/slice_idle
-   echo 0 > "${queue}"/iosched/low_latency
    echo 1 > "${queue}"/iosched/group_idle
 done
 
@@ -119,8 +120,9 @@ echo 0 > /proc/sys/fs/dir-notify-enable
 
 # Disable checking for hung tasks
 echo 0 > /proc/sys/kernel/hung_task_timeout_secs
+
 # GPU tweaks for Adreno GPU recommended by Qualcomm for better performance in their PDF
-echo 1 > /sys/class/kgsl/kgsl-3d0/force_no_nap [ This tunable is set to 1 by default in most kernels ]
+echo 1 > /sys/class/kgsl/kgsl-3d0/force_no_nap
 echo 0 > /sys/class/kgsl/kgsl-3d0/bus_split
 echo 0 > /sys/class/kgsl/kgsl-3d0/throttling
 echo 1 > /sys/class/kgsl/kgsl-3d0/force_rail_on
@@ -150,9 +152,6 @@ write /sys/power/pm_freeze_timeout 25000
 
 # Disable exception-trace and reduce some overhead that is caused by a certain amount and percent of kernel logging, in case your kernel of choice have it enabled;
 write /proc/sys/debug/exception-trace 0
-
-# Improved userspace enhancement
-echo /proc/sys/kernel/hung_task_timeout_secs 0
 
 # Doing ThermodX tweaks job
  rm -rf $MODPATH/storage/emulated/0/XCORE/TX.log
