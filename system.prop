@@ -1,0 +1,17 @@
+#ThermodX 1301 R Beta program
+
+#iorapd
+ro.iorapd.enable=true
+iorapd.perfetto.enable=true
+iorapd.readahead.enable=true
+init.svc.iorapd=running
+
+#fix live wallpaper lag
+debug.sf.latch_unsignaled=0
+
+#scrolling
+ro.max.fling_velocity=27000
+ro.min.fling_velocity=800
+
+#increase smoothness on gestures / animations:
+debug.sf.disable_backpressure=1
