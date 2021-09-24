@@ -1,5 +1,5 @@
-#ThermodX 1301 R Beta program
 #!/system/bin/sh
+#ThermodX 1301 R Beta program
 
 #Gathering device details
 echo "[*] DEVICE BRAND = $(getprop ro.product.brand) " >> /storage/emulated/0/XCORE/TX.log
