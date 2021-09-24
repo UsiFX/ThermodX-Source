@@ -1,0 +1,221 @@
+#!/system/bin/sh
+#ThermodX 1301 R Beta program
+
+#Gathering device details
+echo "[*] DEVICE BRAND = $(getprop ro.product.brand) " >> /storage/emulated/0/XCORE/TX.log
+echo "[*] DEVICE MODEL = $(getprop ro.product.model) " >> /storage/emulated/0/XCORE/TX.log
+echo "[*] DEVICE NAME =  $(getprop ro.product.device) " >> /storage/emulated/0/XCORE/TX.log
+echo "[*] ROM = $(getprop ro.build.display.id) " >> /storage/emulated/0/XCORE/TX.log
+
+# Reducing Some System load
+echo "[*] Reducing system loads..." >> /storage/emulated/0/XCORE/TX.log
+if [ -e "/sys/module/debug/parameters/enable_event_log" ];then
+ echo "0" > /sys/module/debug/parameters/enable_event_log
+fi
+if [ -e "/sys/module/glink/parameters/debug_mask";then
+ echo "0" > /sys/module/glink/parameters/debug_mask
+fi
+if [ -e "/sys/module/usb_bam/parameters/enable_event_log" ];then
+ echo "0" > /sys/module/usb_bam/parameters/enable_event_log
+fi
+if [ -e "/sys/module/printk/parameters/console_suspend" ];then
+ echo "Y" > /sys/module/printk/parameters/console_suspend
+fi
+if [ -e "/sys/module/printk/parameters/ignore_loglevel" ];then
+ echo "Y" > /sys/module/printk/parameters/ignore_loglevel
+fi
+if [ -e "/sys/module/printk/parameters/time" ];then
+ echo "N" > /sys/module/printk/parameters/time
+fi
+if [ -e "/sys/module/bluetooth/parameters/disable_ertm" ];then
+ echo "Y" > /sys/module/bluetooth/parameters/disable_ertm
+fi
+if [ -e "/sys/module/bluetooth/parameters/disable_esco" ];then
+ echo "Y" > /sys/module/bluetooth/parameters/disable_esco
+fi
+if [ -e "/sys/module/hid_apple/parameters/fnmode" ];then
+ echo "0" > /sys/module/hid_apple/parameters/fnmode
+fi
+if [ -e "/sys/module/ip6_tunnel/parameters/log_ecn_error" ];then
+ echo "N" > /sys/module/ip6_tunnel/parameters/log_ecn_error
+fi
+if [ -e "/sys/module/lowmemorykiller/parameters/debug_level" ];then
+ echo "0" > /sys/module/lowmemorykiller/parameters/debug_level
+fi
+if [ -e "/sys/module/msm_smd_pkt/parameters/debug_mask" ];then
+ echo "0" > /sys/module/msm_smd_pkt/parameters/debug_mask
+fi
+if [ -e "/sys/module/sit/parameters/log_ecn_error" ];then
+ echo "N" > /sys/module/sit/parameters/log_ecn_error
+fi
+if [ -e "/sys/module/smp2p/parameters/debug_mask" ];then
+ echo "0" > /sys/module/smp2p/parameters/debug_mask
+fi
+if [ -e "/sys/module/hid/parameters/ignore_special_drivers" ];then
+ echo "0" > /sys/module/hid/parameters/ignore_special_drivers
+fi
+if [ -e "/sys/module/hid_magicmouse/parameters/emulate_3button" ];then
+ echo "N" > /sys/module/hid_magicmouse/parameters/emulate_3button
+fi
+if [ -e "/sys/module/hid_magicmouse/parameters/emulate_scroll_wheel" ];then
+ echo "N" > /sys/module/hid_magicmouse/parameters/emulate_scroll_wheel
+fi
+if [ -e "/sys/module/hid_magicmouse/parameters/scroll_speed" ];then
+ echo "0" > /sys/module/hid_magicmouse/parameters/scroll_speed
+fi
+if [ -e "/sys/module/binder/parameters/debug_mask" ];then
+ echo "0" > /sys/module/binder/parameters/debug_mask
+fi
+if [ -e "/sys/module/service_locator/parameters/enable" ];then
+ echo "0" > /sys/module/service_locator/parameters/enable
+fi
+if [ -e "/sys/module/subsystem_restart/parameters/disable_restart_work" ];then
+ echo "1" > /sys/module/subsystem_restart/parameters/disable_restart_work
+fi
+if [ -e "/sys/module/rmnet_data/parameters/rmnet_data_log_level" ];then
+ echo "0" > /sys/module/rmnet_data/parameters/rmnet_data_log_level
+fi
+
+# Turn off some useless kernel modules that are not needed & never used
+echo " [*] Adapting..."  >> /storage/emulated/0/XCORE/TX.log
+if [ -e "/sys/module/diagchar/parameters/diag_mask_clear_param" ];then
+echo "0" > /sys/module/diagchar/parameters/diag_mask_clear_param
+fi
+if [ -e "/sys/module/diagchar/parameters/diag_mask_clear_param" ];then
+echo "1" > /sys/module/hid/parameters/ignore_special_drivers
+fi
+if [ -e "/sys/module/diagchar/parameters/diag_mask_clear_param" ];then
+echo "0" > /sys/module/icnss/parameters/dynamic_feature_mask
+fi
+if [ -e "/sys/module/diagchar/parameters/diag_mask_clear_param" ];then
+echo "0" > /sys/module/ppp_generic/parameters/mp_protocol_compress
+fi
+
+#Disable CPU & Touch Boost (Just incase ur kernel have that shi*)
+if [ -e "/sys/module/cpu_boost/parameters/boost_ms" ]; then
+ echo "0" > /sys/module/cpu_boost/parameters/boost_ms
+fi
+if [ -e "/sys/module/msm_performance/parameters/touchboost" ]; then
+ echo "0" > /sys/module/msm_performance/parameters/touchboost
+fi
+if [ -e /sys/power/pnpmgr/touch_boost ]; then
+ echo "0" > /sys/power/pnpmgr/touch_boost
+fi
+echo "[!] Kernel adapted successfully" > /storage/emulated/0/XCORE/TX.log
+
+# VM Tweaks
+echo 0 > /proc/sys/vm/oom_dump_tasks
+
+for queue in /sys/block/*/queue; do
+   echo 0 > "${queue}"/add_random
+   echo 0 > "${queue}"/iostats
+   echo 1 > "${queue}"/nomerges
+   echo 1 > "${queue}"/rq_affinity
+   echo 0 > "${queue}"/rotational
+   echo 0 > "${queue}"/iosched/slice_idle
+   echo 0 > "${queue}"/iosched/low_latency
+   echo 1 > "${queue}"/iosched/group_idle
+done
+
+# Enable Ffcahrging
+ffcharge=/sys/kernel/fast_charge/force_fast_charge
+if [ -e $ffcharge ]; then
+echo 1 > $ffcharge
+fi
+echo "[!] ThermodX Tweaks had enabled fast charging as forced" > /storage/emulated/0/XCORE/TX.log
+
+# For thermal
+if [ -e "/sys/module/msm_thermal/parameters/enabled" ];then
+echo 0 > /sys/module/msm_thermal/parameters/enabled
+fi
+if [ -e "/sys/module/msm_thermal/vdd_restriction/enable" ];then
+echo 0 > /sys/module/msm_thermal/vdd_restriction/enable
+fi
+echo"[!] ThermodX Tweaks had adapted MSM Thermals " > /storage/emulated/0/XCORE/TX.log
+
+# Entropy (Stock bess)
+if [ -e "/proc/sys/kernel/random/*" ];then
+echo 1000 > /proc/sys/kernel/random/read_wakeup_threshold
+echo 1000 > /proc/sys/kernel/random/write_wakeup_threshold
+fi
+
+#Props
+resetprop debug.hwui.renderer skiavk
+
+# Disable Adreno GPU logging
+
+if [ -e "/sys/kernel/debug/kgsl/kgsl-3d0" ];then
+echo 0 > /sys/kernel/debug/kgsl/kgsl-3d0/log_level_drv
+echo 0 > /sys/kernel/debug/kgsl/kgsl-3d0/log_level_ctxt
+echo 0 > /sys/kernel/debug/kgsl/kgsl-3d0/log_level_cmd
+echo 0 > /sys/kernel/debug/kgsl/kgsl-3d0/log_level_pwr
+echo 0 > /sys/kernel/debug/kgsl/kgsl-3d0/log_level_mem
+fi
+
+#Enable Explicit Congestion Control. This is done by default on iOS 11+
+echo 1 > /proc/sys/net/ipv4/tcp_ecn
+
+# Enable fast socket open for receiver and sender
+echo 3 > /proc/sys/net/ipv4/tcp_fastopen
+
+# Disable SYN cookies
+echo 0 > /proc/sys/net/ipv4/tcp_syncookies
+
+# Disable various forms of debugging to reduce overhead
+echo off > /proc/sys/kernel/printk_devkmsg
+echo "0 0 0 0" > /proc/sys/kernel/printk
+echo 0 > /proc/sys/debug/exception-trace
+echo 0 > /sys/kernel/debug/tracing/tracing_on
+echo 0 > /proc/sys/vm/oom_dump_tasks
+echo N > /sys/kernel/debug/debug_enabled
+echo 0 > /proc/sys/vm/block_dump
+echo 0 > /sys/module/subsystem_restart/parameters/enable_ramdumps
+echo 0 > /sys/module/rmnet_data/parameters/rmnet_data_log_level
+echo 0 > /proc/sys/kernel/compat-log
+
+# Increase VM stat interval to 10 secends to reduce load
+if [ -e "/proc/sys/vm/*" ];then
+echo 10 > /proc/sys/vm/stat_interval
+# Disable read ahead for swap
+echo 0 > /proc/sys/vm/page-cluster
+# When we kill a task, clean its memory footprint to free up whatever amount of RAM it was consuming
+echo 1 > /proc/sys/vm/reap_mem_on_sigkill
+fi
+# Disable dir notifier service to reduce overhead
+echo 0 > /proc/sys/fs/dir-notify-enable
+
+# Disable checking for hung tasks
+echo 0 > /proc/sys/kernel/hung_task_timeout_secs
+
+# GPU tweaks for Adreno GPU recommended by Qualcomm for better performance in their PDF
+echo 1 > /sys/class/kgsl/kgsl-3d0/force_no_nap
+echo 0 > /sys/class/kgsl/kgsl-3d0/bus_split
+echo 0 > /sys/class/kgsl/kgsl-3d0/throttling
+echo 1 > /sys/class/kgsl/kgsl-3d0/force_rail_on
+echo 1 > /sys/class/kgsl/kgsl-3d0/force_bus_on
+echo 1 > /sys/class/kgsl/kgsl-3d0/force_clk_on
+
+# Disable Adreno GPU logging
+echo 0 > /sys/kernel/debug/kgsl/kgsl-3d0/log_level_drv
+echo 0 > /sys/kernel/debug/kgsl/kgsl-3d0/log_level_ctxt
+echo 0 > /sys/kernel/debug/kgsl/kgsl-3d0/log_level_cmd
+echo 0 > /sys/kernel/debug/kgsl/kgsl-3d0/log_level_pwr
+echo 0 > /sys/kernel/debug/kgsl/kgsl-3d0/log_level_mem
+
+# Swap to swap device at a fair rate [ set by default in newer kernels ] [ This setting is useless if Zram is disabled ]
+echo 100 > /proc/sys/vm/swappiness
+
+
+# Disable various daemons used for logging/debugging for less load
+stop logd
+stop statsd
+stop traced
+
+# A miscellaneous pm_async tweak that increases the amount of time (in milliseconds) before user processes & kernel threads are being frozen & "put to sleep";
+write /sys/power/pm_freeze_timeout 25000
+
+# Disable exception-trace and reduce some overhead that is caused by a certain amount and percent of kernel logging, in case your kernel of choice have it enabled;
+write /proc/sys/debug/exception-trace 0
+
+# Improved userspace enhancement
+write /proc/sys/kernel/hung_task_timeout_secs 0
