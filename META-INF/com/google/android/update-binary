@@ -83,8 +83,8 @@ mkdir -p $MODPATH
 
 # Extract banner to $MODPATH
 if [[ "$BANNER_PRINT" == "true" ]]; then
-    if [[ -e "$MODPATH/banner" ]]; then
-     unzip -o "$ZIPFILE" banner -d $MODPATH >&2
+    if [[ -e "$MODPATH/ThermodXbanner" ]]; then
+     unzip -o "$ZIPFILE" ThermodXbanner -d $MODPATH >&2
     fi
 fi
 
@@ -122,8 +122,8 @@ unzip -oj "$ZIPFILE" module.prop setup.sh uninstall.sh -d $TMPDIR >&2
     fi
 
 # Banner print if true
-    if [[ -e "$MODPATH/banner" ]]; then
-     awk '{print}' "$MODPATH"/banner
+    if [[ -e "$MODPATH/ThermodXbanner" ]]; then
+     awk '{print}' "$MODPATH"/ThermodXbanner
     fi
 
 # Callback 01
