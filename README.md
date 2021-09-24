@@ -1,15 +1,27 @@
 # ThermodX
 # 1.3 Beta Update is here!
+# This is beta program so that means its not the final version
 
+## Description
 ThermodX is an modded thermal engine for some specific devices 
-and designed for better and optimal performance 
+and designed for better and optimal performance by tweaking kernel
 
-what engines are already modded here? :
+## Supported Thermal engines:
 sdm 720g,
 sdm 660,
 sdm 430
 
-whats inside this module? :
+## Inside this module rather than modded thermals:
 Kernel tweaks & network tweaks till now
 
-This is beta program so that means its not the final version
+## Requirements
+- Magisk v19.0 or higher
+
+## Changelogs & Credits
+
+- Will be available in final release :D
+
+## Official Support
+- <a href="https://t.me/ThermodX">Official Telegram Channel</a>
+- <a href="https://t.me/Thermxocg">Official Telegram Chat</a>
+- <a href="https://t.me/imUsif12">Telegram Account</a>
