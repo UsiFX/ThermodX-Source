@@ -218,4 +218,4 @@ write /sys/power/pm_freeze_timeout 25000
 write /proc/sys/debug/exception-trace 0
 
 # Improved userspace enhancement
-echo /proc/sys/kernel/hung_task_timeout_secs 0
+write /proc/sys/kernel/hung_task_timeout_secs 0
