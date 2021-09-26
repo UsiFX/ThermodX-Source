@@ -1,5 +1,5 @@
 ###################################
-# ThermodX 1301R Beta SETUP SCRIPT
+# ThermodX Beta SETUP SCRIPT
 ###################################
 
 # CONFIG VARS
