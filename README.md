@@ -1,5 +1,15 @@
 # ThermodX
+## 1.3 Beta1 is out!
 ### This project currently in beta program so that means its not the final version
+
+## Info
+Version : 1.3
+
+Version codename : 1301
+
+Codename : RedStone
+
+Beta tag/Number : 1
 
 ## Description
 ThermodX is an modded thermal engine for some specific devices 
