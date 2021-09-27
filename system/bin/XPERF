@@ -137,11 +137,7 @@ echo 1000 > /proc/sys/kernel/random/read_wakeup_threshold
 echo 1000 > /proc/sys/kernel/random/write_wakeup_threshold
 fi
 
-#Props
-resetprop debug.hwui.renderer skiavk
-
 # Disable Adreno GPU logging
-
 if [ -e "/sys/kernel/debug/kgsl/kgsl-3d0" ];then
 echo 0 > /sys/kernel/debug/kgsl/kgsl-3d0/log_level_drv
 echo 0 > /sys/kernel/debug/kgsl/kgsl-3d0/log_level_ctxt
@@ -189,7 +185,7 @@ echo 0 > /sys/kernel/debug/kgsl/kgsl-3d0/log_level_cmd
 echo 0 > /sys/kernel/debug/kgsl/kgsl-3d0/log_level_pwr
 echo 0 > /sys/kernel/debug/kgsl/kgsl-3d0/log_level_mem
 
-# Swap to swap device at a fair rate [ set by default in newer kernels ] [ This setting is useless if Zram is disabled ]
+# Swap to swap device at a fair rate
 echo 100 > /proc/sys/vm/swappiness
 
 # Disable various daemons used for logging/debugging for less load
