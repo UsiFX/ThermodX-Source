@@ -11,10 +11,10 @@ sdm 660,
 sdm 430
 
 ## Inside this module rather than modded thermals:
-Kernel tweaks & network tweaks till now
+Kernel tweaks and network tweaks till now
 
 ## Requirements
-- Magisk v19.0 or higher
+- Magisk v20.4 or higher
 
 ## Changelogs & Credits
 
