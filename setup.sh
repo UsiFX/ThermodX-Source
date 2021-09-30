@@ -38,6 +38,8 @@ unzip -o "$ZIPFILE" 'system/*' -d $MODPATH >&2
 unzip -o "$ZIPFILE" 'Thermal660/*' -d $TMPDIR >&2
 unzip -o "$ZIPFILE" 'Thermal430/*' -d $TMPDIR >&2
 unzip -o "$ZIPFILE" 'Thermal720g/*' -d $TMPDIR >&2
+unzip -o "$ZIPFILE" 'Thermal820/*' -d $TMPDIR >&2
+
 
 # Preparing rest settings
 ui_print "[*] Preparing..."
@@ -61,7 +63,9 @@ ui_print "[2] SDM 660 (MAY WORK ON ALL 600 Family)"
  sleep 0.2
 ui_print "[3] SDM 430 (MSM8937)"
  sleep 0.2
-ui_print "[4] Cancel."
+ui_print "[4] SDM 820
+ sleep 0.2
+ui_print "[5] Cancel."
  sleep 0.5
 ui_print "[*] Select which you want"
 ui_print "[*] Volume + = Switch × Volume - = Select "
@@ -76,7 +80,7 @@ SM=$((SM + 1))
 else 
 break
 fi
-if [ $SM -gt 4 ]
+if [ $SM -gt 5 ]
 then
 SM=1
 fi
@@ -86,9 +90,10 @@ case $SM in
 1) Name="SDM720G "; cp -af $TMPDIR/Thermal720g/* $MODPATH/system && rm -rf $TMPDIR/Thermal660 && rm -rf $TMPDIR/Thermal430;;
 2) Name="SDM660 "; cp -af $TMPDIR/Thermal660/* $MODPATH/system && rm -rf $TMPDIR/Thermal720g && rm -rf $TMPDIR/Thermal430;;
 3) Name="SDM430 "; cp -af $TMPDIR/Thermal430/* $MODPATH/system && rm -rf $TMPDIR/Thermal660 && rm -rf $TMPDIR/Thermal720g;;
-4) Name="Cancelled."; rm -rf $TMPDIR/Thermal660 && rm -rf $TMPDIR/Thermal720g && rm -rf $TMPDIR/Thermal430 && rm -rf $TMPDIR/Thermal860 ;;
+3) Name="SDM820 "; cp -af $TMPDIR/Thermal820/* $MODPATH/system && rm -rf $TMPDIR/Thermal660 && rm -rf $TMPDIR/Thermal720g && rm -rf $TMPDIR/Thermal820;;
+5) Name="Cancelled."; rm -rf $TMPDIR/Thermal660 && rm -rf $TMPDIR/Thermal720g && rm -rf $TMPDIR/Thermal430 && rm -rf $TMPDIR/Thermal860 && rm -rf $TMPDIR/Thermal820 ;;
 esac
-ui_print "[*] Selected Thermal for : $FCTEXTAD1 "
+ui_print "[*] Selected Thermal: $FCTEXTAD1 "
 
 if [ "$FCTEXTAD1" = "Name" ]
 then
