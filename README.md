@@ -17,10 +17,10 @@
 ## Requirements:
 #### Magisk v19.0 or higher
 
-## Changelogs & Credits
+## Changelogs & Credits:
 #### Will be available in final release :D
 -------------------------------------------------------------------------------------
-## Official Support
+## Official Support:
  <a href="https://t.me/ThermodX">Official Telegram Channel</a>
  
  <a href="https://t.me/Thermxocg">Official Telegram Chat</a>
