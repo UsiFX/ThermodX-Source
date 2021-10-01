@@ -6,17 +6,20 @@
 <a href="https://github.com/UsiFX/ThermodX-Source" alt="GitHub closed pull requests"> <img src="https://img.shields.io/github/issues-pr-closed-raw/UsiFX/ThermodX-Source?color=success" /> </a> <img src="https://img.shields.io/badge/maintained%3F-yes-blue.svg" /> </a> <a href="https://www.pling.com/p/1609396/"><img src="https://img.shields.io/badge/Download-Module-red.svg"></a> <br/>
 
 
-### This project currently in beta so that means its not the final version
--------------------------------------------------------------------------------------
+### This project is currently under beta testing, final version will be available soon!
+---------------------------------------------------------------------------------------
 ## Description:
-### ThermodX is an modded thermal engine for some specific devices 
-### and designed for better and optimal performance by tweaking kernel
+### ThermodX is a modded thermal engine for some selected devices (will be adding more devices in the future)
+### and designed for better and optimal performance by tweaking the kernel!
 
-## Supported Thermal engines:
-#### Snapdragon 820, 720G, 660, 430.
+## Supported Thermal engines (as of now):
+#### > Snapdragon 820
+#### > Snapdragon 720G
+#### > Snapdragon 660
+#### > Snapdragon 430
 
-## Inside this module rather than modded thermals:
-#### Kernel tweaks & network tweaks till now
+## Features/Tweaks included in this module rather than modded thermals:
+#### Kernel tweaks & network tweaks for now
 
 ## Requirements:
 #### Magisk v19.0 or higher
