@@ -1,44 +1,43 @@
 ###################################
 # ThermodX Beta SETUP SCRIPT
 ###################################
+# Config Vars
 
-# CONFIG VARS
 # Choose if you want to skip mount for your module or not.
 SKIPMOUNT=false
-# Set this true if you want auto unzipping of pre-defined folders (set false if you have modified custom unzipping function)
-AUTO_UNZIP=false
-# Select true if you want to want to debug
-DEBUG=true
 # Set true if you want to load system.prop
 PROPFILE=true
 # Set true if you want to load post-fs-data.sh
 POSTFSDATA=false
 # Set true if you want to load service.sh
-LATESTARTSERVICE=true 
+LATESTARTSERVICE=true
 # Set true if you want to clean old files in module before injecting new module
 CLEANSERVICE=true
-# Set this true if you want to print pre-defined banner while flashing
-BANNER_PRINT=true
-# More functions soon😎
+# Select true if you want to want to debug
+DEBUG=true
+# Select this if you want to add cloud support to your scripts
+#CLOUDSUPPPORT=true
+# Add cloud host path to this variable
+#CLOUDHOST=
+
+# Custom var
+MODDIR=/data/adb/modules
 
 # Input options which you want to be replaced
 REPLACE="
 "
 
-# Set what you want to be displayed on header on installation process (not needed much)
+# Set what you want to be displayed on header on installation process
 mod_info_print() {
+awk '{print}' "$MODPATH"/ThermodXbanner
+ui_print ""
 }
 
-# Default extraction path is to $MODPATH. Change the logic to whatever you want. Give required sleepers in ever ui_print for better understanding of test printed
+# Default extraction path is to $MODPATH. Change the logic to whatever you want.
 install_module() {
-
-# Custom unzipping logic (keep addon unzip function intact)
+# Unzip
 unzip -o "$ZIPFILE" 'addon/*' -d $TMPDIR >&2
 unzip -o "$ZIPFILE" 'system/*' -d $MODPATH >&2
-unzip -o "$ZIPFILE" 'Thermal660/*' -d $TMPDIR >&2
-unzip -o "$ZIPFILE" 'Thermal430/*' -d $TMPDIR >&2
-unzip -o "$ZIPFILE" 'Thermal720g/*' -d $TMPDIR >&2
-unzip -o "$ZIPFILE" 'Thermal820/*' -d $TMPDIR >&2
 
 
 # Preparing rest settings
