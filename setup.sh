@@ -107,9 +107,6 @@ elif [ "$(pm list package feravolt)" ]; then
 ui_print "[*] FDE.AI App is present, uninstall it to prevent conflicts."
 fi
 
-# Input the necessary logic you want in your module here
-ui_print ""
-
 # Print module extracting text here for better ordered arrangement of prints
 ui_print "[*] Extracting module files..."
 
@@ -148,18 +145,29 @@ then
 SM=1
 fi
 done
-
 case $SM in		
-1) Name="SDM720G "; cp -af $TMPDIR/Thermal720g/* $MODPATH/system && rm -rf $TMPDIR/Thermal660 && rm -rf $TMPDIR/Thermal430;;
-2) Name="SDM660 "; cp -af $TMPDIR/Thermal660/* $MODPATH/system && rm -rf $TMPDIR/Thermal720g && rm -rf $TMPDIR/Thermal430;;
-3) Name="SDM430 "; cp -af $TMPDIR/Thermal430/* $MODPATH/system && rm -rf $TMPDIR/Thermal660 && rm -rf $TMPDIR/Thermal720g;;
-3) Name="SDM820 "; cp -af $TMPDIR/Thermal820/* $MODPATH/system && rm -rf $TMPDIR/Thermal660 && rm -rf $TMPDIR/Thermal720g && rm -rf $TMPDIR/Thermal820;;
-5) Name="Cancelled."; rm -rf $TMPDIR/Thermal660 && rm -rf $TMPDIR/Thermal720g && rm -rf $TMPDIR/Thermal430 && rm -rf $TMPDIR/Thermal860 && rm -rf $TMPDIR/Thermal820 ;;
+1) FCTEXTAD1="SDM720G ";;
+2) FCTEXTAD1="SDM660 ";;
+3) FCTEXTAD1="SDM430 ";;
+3) FCTEXTAD1="SDM820 ";;
+5) FCTEXTAD1="Cancelled.";;
 esac
 ui_print "[*] Selected Thermal: $FCTEXTAD1 "
 
-if [ "$FCTEXTAD1" = "Name" ]
-then
+if [[ "$FCTEXTAD1" == "SDM720G" ]]; then
+cp -af $TMPDIR/Thermal720g/* $MODPATH/system && rm -rf $TMPDIR/Thermal660 && rm -rf $TMPDIR/Thermal430
+
+elif [[ "$FCTEXTAD1" == "SDM660" ]]; then
+cp -af $TMPDIR/Thermal660/* $MODPATH/system && rm -rf $TMPDIR/Thermal720g && rm -rf $TMPDIR/Thermal430
+
+elif [[ "$FCTEXTAD1" == "SDM430" ]]; then
+ cp -af $TMPDIR/Thermal430/* $MODPATH/system && rm -rf $TMPDIR/Thermal660 && rm -rf $TMPDIR/Thermal720g
+
+elif [[ "$FCTEXTAD1" == "SDM820" ]]; then
+cp -af $TMPDIR/Thermal820/* $MODPATH/system && rm -rf $TMPDIR/Thermal660 && rm -rf $TMPDIR/Thermal720g && rm -rf $TMPDIR/Thermal820
+
+elif [[ "$FCTEXTAD1" == "Cancelled." ]]; then
+rm -rf $TMPDIR/Thermal660 && rm -rf $TMPDIR/Thermal720g && rm -rf $TMPDIR/Thermal430 && rm -rf $TMPDIR/Thermal860 && rm -rf $TMPDIR/Thermal820
 fi
 
 sleep 0.2
@@ -187,15 +195,18 @@ fi
 done
 
 case $SM2 in
-1) Name1=" Yes ";;
-2) Name1=" No "; rm -rf $MODPATH/system/bin/XPERF;;
+1) FCTEXTAD2=" Yes ";;
+2) FCTEXTAD2=" No ";;
 esac
 
-if [ "$FCTEXTAD2" = "Name1" ]
-then
-fi
+if [[ "$FCTEXTAD2" == " Yes " ]]; then
+sleep 0.1
 
-ui_print "[*] Kernel Tweaks Selected: $Name1"
+elif [[ "$FCTEXTAD2" == " No " ]]; then
+rm -rf $MODPATH/system/bin/XPERF
+
+
+ui_print "[*] Kernel Tweaks Selected: $FCTEXTAD2"
 sleep 0.2
 ui_print "[?] Do you want Network tweaks"
 sleep 0.2
@@ -221,15 +232,17 @@ fi
 done
 
 case $SM3 in
-1) Name2=" Yes ";;
-2) Name2=" No "; rm -rf $MODPATH/system/bin/XNET;;
+1) FCTEXTAD3=" Yes ";;
+2) FCTEXTAD3=" No ";;
 esac
 
-if [ "$FCTEXTAD3" = "Name2" ]
-then
-fi
+if [[ "$FCTEXTAD3" == " Yes " ]]; then
+sleep 0.1
 
-ui_print "[*] Network Tweaks Selected: $Name1"
+elif [[ "$FCTEXTAD3" == " No " ]]; then
+rm -rf $TMPDIR/system/bin/XNET
+
+ui_print "[*] Network Tweaks Selected: $FCTEXTAD3"
 
 # Input some notes here about module or any other info
 ui_print "[!] Notes: "
