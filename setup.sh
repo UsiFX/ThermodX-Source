@@ -156,20 +156,20 @@ esac
 ui_print "[*] Selected Thermal: $FCTEXTAD1 "
 
 if [[ "$FCTEXTAD1" == "SDM720G" ]]; then
-cp -af $TMPDIR/Thermal720g/* $MODPATH/system && rm -rf $TMPDIR/Thermal660 && rm -rf $TMPDIR/Thermal430
+unzip -o "$ZIPFILE" 'Thermal720g/*' -d $TMPDIR >&2
+cp -af $TMPDIR/Thermal720g/* $MODPATH/system
 
 elif [[ "$FCTEXTAD1" == "SDM660" ]]; then
-cp -af $TMPDIR/Thermal660/* $MODPATH/system && rm -rf $TMPDIR/Thermal720g && rm -rf $TMPDIR/Thermal430
+unzip -o "$ZIPFILE" 'Thermal660/*' -d $TMPDIR >&2 
+cp -af $TMPDIR/Thermal660/* $MODPATH/system
 
 elif [[ "$FCTEXTAD1" == "SDM430" ]]; then
- cp -af $TMPDIR/Thermal430/* $MODPATH/system && rm -rf $TMPDIR/Thermal660 && rm -rf $TMPDIR/Thermal720g
+unzip -o "$ZIPFILE" 'Thermal430/*' -d $TMPDIR >&2 
+cp -af $TMPDIR/Thermal430/* $MODPATH/system
 
 elif [[ "$FCTEXTAD1" == "SDM820" ]]; then
-cp -af $TMPDIR/Thermal820/* $MODPATH/system && rm -rf $TMPDIR/Thermal660 && rm -rf $TMPDIR/Thermal720g && rm -rf $TMPDIR/Thermal820
-
-elif [[ "$FCTEXTAD1" == "Cancelled." ]]; then
-rm -rf $TMPDIR/Thermal660 && rm -rf $TMPDIR/Thermal720g && rm -rf $TMPDIR/Thermal430 && rm -rf $TMPDIR/Thermal860 && rm -rf $TMPDIR/Thermal820
-fi
+unzip -o "$ZIPFILE" 'Thermal820/*' -d $TMPDIR >&2 
+cp -af $TMPDIR/Thermal820/* $MODPATH/system
 
 sleep 0.2
 ui_print "[?] Do you want kernel tweaks"
