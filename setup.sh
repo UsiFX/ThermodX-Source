@@ -48,6 +48,10 @@ if [ -d $MODDIR/KTSR ]; then
 ui_print "[*] KTSR Module is present, disabled for security purposes."
 touch $MODDIR/KSTR/disable
 
+elif [ -d $MODDIR/thermods_rvnsname ]; then
+ui_print "[*] Thermods 2.0 Module is present, disabled for security purposes" 
+touch $MODDIR/thermods_rvnsname/disable
+
 elif [ -d $MODDIR/FDE ]; then
 ui_print "[*] FDE.AI Module is present, disabled for security purposes" 
 touch $MODDIR/FDE/disable
