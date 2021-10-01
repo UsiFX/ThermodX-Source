@@ -44,6 +44,70 @@ unzip -o "$ZIPFILE" 'Thermal820/*' -d $TMPDIR >&2
 # Preparing rest settings
 ui_print "[*] Preparing..."
 
+if [ -d $MODDIR/KTSR ]; then
+ui_print "[*] KTSR Module is present, disabled for security purposes."
+touch $MODDIR/KSTR/disable
+
+elif [ -d $MODDIR/FDE ]; then
+ui_print "[*] FDE.AI Module is present, disabled for security purposes" 
+touch $MODDIR/FDE/disable
+
+elif [ -d $MODDIR/MAGNETAR ]; then
+ui_print "[*] MAGNETAR Module is present, disabled for security purposes."
+touch $MODDIR/MAGNETAR/disable
+
+elif [ -d $MODDIR/ZeetaaTweaks ]; then
+ui_print "[*] ZeetaaTweaks Module is present, disabled for security purposes."
+touch $MODDIR/ZeetaaTweaks/disable
+
+elif [ -d $MODDIR/KTSRPRO ]; then
+ui_print "[*] KTSR PRO Module is present, disabled for security purposes."
+touch $MODDIR/KTSRPRO/disable
+
+elif [ -d $MODDIR/ZTS ]; then
+ui_print "[*] ZTS Module is present, disabled for security purposes."
+touch $MODDIR/ZTS/disable
+
+elif [ -d $MODDIR/Pulsar_Engine ]; then
+ui_print "[*] Pulsar Engine Module is present, disabled for security purposes."
+touch $MODDIR/Pulsar_Engine/disable
+
+elif [ -d $MODDIR/ktweak ]; then
+ui_print "[*] KTweak Module is present, disabled for security purposes."
+touch $MODDIR/ktweak/disable
+
+elif [ -d $MODDIR/high_perf_dac ]; then
+ui_print "[*] HIGH PERFORMANCE Module is present, disabled for security purposes."
+touch $MODDIR/high_perf_dac/disable
+
+elif [ -d $MODDIR/fkm_spectrum_injector ]; then
+ui_print "[*] FKM Injector Module is present, disabled for security purposes."
+touch $MODDIR/fkm_spectrum_injector/disable
+
+elif [ -d $MODDIR/toolbox8 ]; then
+ui_print "[*] Pandora's Box Module is present, disabled for security purposes."
+touch $MODDIR/MAGNETAR/disable
+
+elif [ -d $MODDIR/lazy ]; then
+ui_print "[*] Lazy Tweaks Module is present, disabled for security purposes."
+touch $MODDIR/lazy/disable
+
+elif [ "$(pm list package ktweak)" ]; then
+ui_print "[*] KTweak App is present, uninstall it to prevent conflicts."
+
+elif [ "$(pm list package kitana)" ]; then
+ui_print "[*] Kitana App is present, uninstall it to prevent conflicts."
+
+elif [ "$(pm list package magnetarapp)" ]; then
+ui_print "[*] MAGNETAR App is present, uninstall it to prevent conflicts."
+
+elif [ "$(pm list package lsandroid)" ]; then
+ui_print "[*] LSpeed App is present, uninstall it to prevent conflicts."
+
+elif [ "$(pm list package feravolt)" ]; then
+ui_print "[*] FDE.AI App is present, uninstall it to prevent conflicts."
+fi
+
 # Input the necessary logic you want in your module here
 ui_print ""
 
