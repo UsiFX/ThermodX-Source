@@ -1,5 +1,9 @@
 #!/system/bin/sh
 #ThermodX 1301 R Beta program
+echo "1" > /proc/sys/net/ipv4/tcp_ecn
+echo "0" > /proc/sys/net/ipv4/tcp_syncookies
+echo "3" > /proc/sys/net/ipv4/tcp_fastopen
+echo "1" > /proc/sys/net/ipv4/tcp_low_latency
 echo "1" > /proc/sys/net/ipv4/tcp_tw_reuse;
 echo "1" > /proc/sys/net/ipv4/tcp_sack;
 echo "1" > /proc/sys/net/ipv4/tcp_tw_recycle;
