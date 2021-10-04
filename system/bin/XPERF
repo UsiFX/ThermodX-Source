@@ -109,11 +109,9 @@ echo 0 > /proc/sys/vm/oom_dump_tasks
 for queue in /sys/block/*/queue; do
    echo 0 > "${queue}"/add_random
    echo 0 > "${queue}"/iostats
-   echo 1 > "${queue}"/nomerges
    echo 1 > "${queue}"/rq_affinity
    echo 0 > "${queue}"/rotational
    echo 0 > "${queue}"/iosched/slice_idle
-   echo 0 > "${queue}"/iosched/low_latency
    echo 1 > "${queue}"/iosched/group_idle
 done
 
@@ -152,15 +150,6 @@ echo 0 > /sys/kernel/debug/kgsl/kgsl-3d0/log_level_pwr
 echo 0 > /sys/kernel/debug/kgsl/kgsl-3d0/log_level_mem
 fi
 
-#Enable Explicit Congestion Control. This is done by default on iOS 11+
-echo 1 > /proc/sys/net/ipv4/tcp_ecn
-
-# Enable fast socket open for receiver and sender
-echo 3 > /proc/sys/net/ipv4/tcp_fastopen
-
-# Disable SYN cookies
-echo 0 > /proc/sys/net/ipv4/tcp_syncookies
-
 # Disable various forms of debugging to reduce overhead
 echo off > /proc/sys/kernel/printk_devkmsg
 echo "0 0 0 0" > /proc/sys/kernel/printk
@@ -195,16 +184,8 @@ echo 1 > /sys/class/kgsl/kgsl-3d0/force_rail_on
 echo 1 > /sys/class/kgsl/kgsl-3d0/force_bus_on
 echo 1 > /sys/class/kgsl/kgsl-3d0/force_clk_on
 
-# Disable Adreno GPU logging
-echo 0 > /sys/kernel/debug/kgsl/kgsl-3d0/log_level_drv
-echo 0 > /sys/kernel/debug/kgsl/kgsl-3d0/log_level_ctxt
-echo 0 > /sys/kernel/debug/kgsl/kgsl-3d0/log_level_cmd
-echo 0 > /sys/kernel/debug/kgsl/kgsl-3d0/log_level_pwr
-echo 0 > /sys/kernel/debug/kgsl/kgsl-3d0/log_level_mem
-
-# Swap to swap device at a fair rate [ set by default in newer kernels ] [ This setting is useless if Zram is disabled ]
+# Swap to swap device at a fair rate
 echo 100 > /proc/sys/vm/swappiness
-
 
 # Disable various daemons used for logging/debugging for less load
 stop logd
@@ -216,6 +197,3 @@ write /sys/power/pm_freeze_timeout 25000
 
 # Disable exception-trace and reduce some overhead that is caused by a certain amount and percent of kernel logging, in case your kernel of choice have it enabled;
 write /proc/sys/debug/exception-trace 0
-
-# Improved userspace enhancement
-write /proc/sys/kernel/hung_task_timeout_secs 0
