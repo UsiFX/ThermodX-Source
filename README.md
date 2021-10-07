@@ -17,6 +17,7 @@
 #### > Snapdragon 720G
 #### > Snapdragon 660
 #### > Snapdragon 430
+#### > Snapdragon 425
 
 ## Features/Tweaks included in this module rather than modded thermals:
 #### Kernel tweaks & network tweaks for now
