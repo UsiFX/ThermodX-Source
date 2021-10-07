@@ -119,13 +119,15 @@ ui_print "[*] Volume + = Switch × Volume - = Select "
 sleep 1.5
 ui_print "[1] SDM 720G"
 sleep 0.8
-ui_print "[2] SDM 660 "
+ui_print "[2] SDM 660"
 sleep 0.8
-ui_print "[3] SDM 430 'MSM8937' "
+ui_print "[3] SDM 430 'MSM8937'"
 sleep 0.8
-ui_print "[4] SDM 820"
+ui_print "[4] SDM 425"
 sleep 0.8
-ui_print "[5] Cancel."
+ui_print "[5] SDM 820"
+sleep 0.8
+ui_print "[6] Cancel."
 sleep 0.8
 ui_print "[*] Select which your device cpu model:"
 SM=1
@@ -138,7 +140,7 @@ SM=$((SM + 1))
 else
 break
 fi
-if [ $SM -gt 5 ]
+if [ $SM -gt 6 ]
 then
 SM=1
 fi
@@ -148,8 +150,9 @@ case $SM in
 1) FCTEXTAD1="SDM720G";;
 2) FCTEXTAD1="SDM660";;
 3) FCTEXTAD1="SDM430";;
-4) FCTEXTAD1="SDM820";;
-5) FCTEXTAD1="*Cancelled*";;
+4) FCTEXTAD1="SDM425";;
+5) FCTEXTAD1="SDM820";;
+6) FCTEXTAD1="*Cancelled*";;
 esac
 
 ui_print "[*] Selected: $FCTEXTAD1 "
@@ -162,6 +165,9 @@ unzip -o "$ZIPFILE" 'Thermal660/*' -d "$TMPDIR" >&2 && cp -af "$TMPDIR"/Thermal6
 
 elif [[ "$FCTEXTAD1" == "SDM430" ]]; then
 unzip -o "$ZIPFILE" 'Thermal430/*' -d "$TMPDIR" >&2 && cp -af "$TMPDIR"/Thermal430/* "$MODPATH"/system
+
+elif [[ "$FCTEXTAD1" == "SDM425" ]]; then
+unzip -o "$ZIPFILE" 'Thermal425/*' -d "$TMPDIR" >&2 && cp -af "$TMPDIR"/Thermal425/* "$MODPATH"/system
 
 elif [[ "$FCTEXTAD1" == "SDM820" ]]; then
 unzip -o "$ZIPFILE" 'Thermal820/*' -d "$TMPDIR" >&2 && cp -af "$TMPDIR"/Thermal820/* "$MODPATH"/system
