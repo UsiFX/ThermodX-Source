@@ -41,9 +41,6 @@ _wget -O "$ {
 _wget -O "$ {
     MODPATH
 }/system.prop" "https://raw.githubusercontent.com/UsiFX/ThermodX-Source/main/system.prop"
-_wget -O "$ {
-    MODPATH
-}/ThermodXbanner" "https://raw.githubusercontent.com/UsiFX/ThermodX-Source/main/ThermodXbanner"
 
 # Start qcom optimization
 sh "/system/bin/xqcom"
