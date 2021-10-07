@@ -17,7 +17,9 @@ mkdir -p $TMPDIR
 ui_print() { echo "$1"; }
 
 require_new_magisk() {
-  ui_print "[!] Please install Magisk v19.0+ "
+  ui_print "*******************************"
+  ui_print " Please install Magisk v19.0+! "
+  ui_print "*******************************"
   exit 1
 }
 
@@ -82,7 +84,7 @@ mkdir -p $MODPATH
 ##############
 
 # Extract modname_print to $MODPATH
-unzip -o "$ZIPFILE" ThermodXbanner service.sh system.prop -d $MODPATH >&2
+unzip -o "$ZIPFILE" TXBanner service.sh system.prop -d $MODPATH >&2
 
 if is_setup_script; then
 unzip -oj "$ZIPFILE" module.prop setup.sh uninstall.sh -d $TMPDIR >&2
@@ -91,12 +93,12 @@ unzip -oj "$ZIPFILE" module.prop setup.sh uninstall.sh -d $TMPDIR >&2
 . $TMPDIR/setup.sh
 
 # Remove all old files before doing installation if want to
-  if [[ "$CLEANSERVICE" = "true" ]]; then
+  if [ "$CLEANSERVICE" = "true" ]; then
     rm -rf /data/adb/modules/${MODID}/* 2>/dev/null
   fi
 
 # Enable debugging if true
-  if [[ "$DEBUG" == "true" ]]; then
+  if [ "$DEBUG" = "true" ]; then
     set -x
   else
     set +x
@@ -106,11 +108,11 @@ unzip -oj "$ZIPFILE" module.prop setup.sh uninstall.sh -d $TMPDIR >&2
 mod_info_print
 
 # Unzipping under auto extraction
-if [[ "$AUTOUNZIP" == "true" ]]; then
-   if [[ -e "$MODPATH/addon" ]] ; then
+if [[ "$AUTOUNZIP" = "true" ]]; then
+   if [ -e "$MODPATH/addon" ] ; then
    unzip -o "$ZIPFILE" 'addon/*' -d $TMPDIR >&2
 
-   elif [[ -e "$MODPATH/system" ]]; then
+   elif [ -e "$MODPATH/system" ]; then
    unzip -o "$ZIPFILE" 'system/*' -d $MODPATH >&2
    fi
 fi
@@ -119,27 +121,27 @@ fi
 install_module
 
 # Custom uninstaller
-  if [[ -f $TMPDIR/uninstall.sh ]]; then 
+  if [ -f $TMPDIR/uninstall.sh ]; then 
     cp -af $TMPDIR/uninstall.sh $MODPATH/uninstall.sh
   fi
 
 # Skip mount
-  if [[ "$SKIPMOUNT" == "true" ]]; then
+  if [ "$SKIPMOUNT" = "true" ]; then
     touch $MODPATH/skip_mount
   fi
 
 # Prop file
-  if [[ "$PROPFILE" == "false" ]]; then
+  if [ "$PROPFILE" = "false" ]; then
     rm -rf $MODPATH/system.prop
   fi
 
 # Post-fs-data script
-  if [[ "$POSTFSDATA" == "false" ]]; then
+  if [ "$POSTFSDATA" = "false" ]; then
     rm -rf $MODPATH/post-fs-data.sh
   fi
 
 # Service script
-  if [[ "$LATESTARTSERVICE" == "false" ]]; then
+  if [ "$LATESTARTSERVICE" = "false" ]; then
     rm -rf $MODPATH/service.sh
   fi
 
