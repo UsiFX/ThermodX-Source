@@ -2,11 +2,11 @@
 # ThermodX Logic
 
 FILESPATH="system/bin"
-MODPATH="/data/adb/modules/ThermodX.ADB"
 TPATH="/sys/class/thermal/thermal_message/sconfig"
 LOG="/storage/emulated/0/XCORE/TX.log"
 Path="/sdcard"
 bb="/data/adb/magisk/busybox"
+LOGPATH="/storage/emulated/0/XCORE/"
 
 # Sleep until boot completed
 until [ "$(getprop sys.boot_completed)" = "1" ] || [ "$(getprop dev.bootcomplete)" = "1" ]
@@ -15,7 +15,7 @@ do
 done
 
 # Sleep until some time to complete boot and init
-sleep 120
+sleep 30
 
 make_file_for_module(){
 if [ ! -d ${Path}/XCORE ]; then
@@ -36,7 +36,7 @@ sync
 sh "${FILESPATH}/xqcom.sh"
 
 # Setup logging
-sh "${FILESPATH}/XLOG.sh"
+$bb sh "${FILESPATH}/XLOG.sh"
 
 # Thermal_Message_Tweaks
 setup_tweaks_thermal(){
@@ -52,16 +52,23 @@ fi
 setup_tweaks_thermal
 
 # XPERF,XNET Start
-setup_tweaks(){
+setup_xperf(){
 if [ -f ${FILESPATH}/XPERF.sh ];then
-sh "${FILESPATH}/XPERF.sh"
-sleep 0.5
+echo "[*] Starting XPERF..." >> ${LOGPATH}TX.log && sh "${FILESPATH}/XPERF.sh"
 fi
+}
+setup_xnet(){
 if [ -f ${FILESPATH}/XNET.sh ];then
-sh "${FILESPATH}/XNET.sh"
+echo "[*] Starting XNET..." >> ${LOGPATH}TX.log && sh "${FILESPATH}/XNET.sh"
 fi
 }
 
-setup_tweaks
+setup_xperf
+sleep 0.5
+setup_xnet
+
+echo "[*] PROCESS DONE AT : $(date +"%d-%m-%Y %r" )" >> ${LOGPATH}TX.log
+echo "[*] Finishing up...
+[*] Done." >> ${LOGPATH}TX.log
 
 exit 0

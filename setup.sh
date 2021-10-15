@@ -121,9 +121,9 @@ ui_print "[!] installing modded Thermal engine."
 sleep 1.5
 ui_print "[*] Volume + = Switch × Volume - = Select "
 sleep 1.5
-ui_print "[2] SDM 710"
-sleep 0.8
 ui_print "[1] SDM 720G"
+sleep 0.8
+ui_print "[2] SDM 710"
 sleep 0.8
 ui_print "[3] SDM 660 "
 sleep 0.8
@@ -209,7 +209,7 @@ esac
 ui_print "[*] Selected: $FCTEXTAD3 "
 
 if [[ "$FCTEXTAD3" == "*Cancelled*" ]]; then
-rm -rf "$TMPDIR"/system/bin/XPERF
+rm -rf "$TMPDIR"/system/bin/XPERF.sh && rm -rf "$TMPDIR"/system/bin/xqcom.sh
 fi
 
 if [[ "$FCTEXTAD3" == "Yes." ]]; then
@@ -248,7 +248,7 @@ esac
 ui_print "[*] Selected: $FCTEXTAD2 "
 
 if [[ "$FCTEXTAD2" == "*Cancelled*" ]]; then
-rm -rf "$TMPDIR"/system/bin/XNET
+rm -rf "$TMPDIR"/system/bin/XNET.sh
 fi
 
 if [[ "$FCTEXTAD2" == "Yes." ]]; then
@@ -258,8 +258,8 @@ fi
 
 
 prepare_thermals_en
-XNET_en
 XPERF_en
+XNET_en
 
 sleep 1
 ui_print "[*] ThermodX has been installed successfully."
