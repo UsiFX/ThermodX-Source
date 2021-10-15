@@ -1,149 +1,197 @@
-###################################
-# ThermodX Beta SETUP SCRIPT
-###################################
+#!/sbin/sh
+###########################
+# MMT - BOURNE SETUP SCRIPT
+###########################
 
-# CONFIG VARS
+# Config Vars
 # Choose if you want to skip mount for your module or not.
 SKIPMOUNT=false
-# Set this true if you want auto unzipping of pre-defined folders (set false if you have modified custom unzipping function)
-AUTO_UNZIP=false
-# Select true if you want to want to debug
-DEBUG=true
 # Set true if you want to load system.prop
 PROPFILE=true
 # Set true if you want to load post-fs-data.sh
 POSTFSDATA=false
 # Set true if you want to load service.sh
-LATESTARTSERVICE=true 
+LATESTARTSERVICE=true
 # Set true if you want to clean old files in module before injecting new module
 CLEANSERVICE=true
-# Set this true if you want to print pre-defined banner while flashing
-BANNER_PRINT=true
-# More functions soon😎
+# Select true if you want to want to debug
+DEBUG=true
+# Select this if you want to add cloud support to your scripts
+#CLOUDSUPPPORT=true
+# Add cloud host path to this variable
+#CLOUDHOST=
+
+# Custom var
+MODDIR=/data/adb/modules
 
 # Input options which you want to be replaced
 REPLACE="
 "
 
-# Set what you want to be displayed on header on installation process (not needed much)
-mod_info_print() {
+# Set what you want to be displayed on header on installation process
+mod_info_print_en(){
+awk '{print}' "$MODPATH"/tx_banner
+ui_print ""
+ui_print "[⚡] POWERFUL THERMAL & TWEAKER [⚡]"
 }
 
-# Default extraction path is to $MODPATH. Change the logic to whatever you want. Give required sleepers in ever ui_print for better understanding of test printed
-install_module() {
 
-# Custom unzipping logic (keep addon unzip function intact)
+# Default extraction path is to $MODPATH. Change the logic to whatever you want.
 unzip -o "$ZIPFILE" 'addon/*' -d $TMPDIR >&2
 unzip -o "$ZIPFILE" 'system/*' -d $MODPATH >&2
-unzip -o "$ZIPFILE" 'Thermal660/*' -d $TMPDIR >&2
-unzip -o "$ZIPFILE" 'Thermal430/*' -d $TMPDIR >&2
-unzip -o "$ZIPFILE" 'Thermal720g/*' -d $TMPDIR >&2
+unzip -o "$ZIPFILE" 'script/*' -d $MODPATH >&2
+unzip -o "$ZIPFILE" 'bin/*' -d $MODPATH >&2
 
-# Preparing rest settings
+# Preparing test and rest settings
+prepare_for_confliction_en(){
 ui_print "[*] Preparing..."
+sleep 1.5
+if [ -d $MODDIR/KTSR ]; then
+ui_print "[*] KTSR Module is present, disabled for security purposes."
+touch $MODDIR/KSTR/disable
 
-# Input the necessary logic you want in your module here
-ui_print ""
+elif [ -d $MODDIR/FDE ]; then
+ui_print "[*] FDE.AI Module is present, disabled for security purposes"
+touch $MODDIR/FDE/disable
 
-# Print module extracting text here for better ordered arrangement of prints
-ui_print "[*] Extracting module files..."
+elif [ -d $MODDIR/MAGNETAR ]; then
+ui_print "[*] MAGNETAR Module is present, disabled for security purposes."
+touch $MODDIR/MAGNETAR/disable
 
-# Load Vol Key Selector (don't change)
+elif [ -d $MODDIR/ZeetaaTweaks ]; then
+ui_print "[*] ZeetaaTweaks Module is present, disabled for security purposes."
+touch $MODDIR/ZeetaaTweaks/disable
+
+elif [ -d $MODDIR/KTSRPRO ]; then
+ui_print "[*] KTSR PRO Module is present, disabled for security purposes."
+touch $MODDIR/KTSRPRO/disable
+
+elif [ -d $MODDIR/ZTS ]; then
+ui_print "[*] ZTS Module is present, disabled for security purposes."
+touch $MODDIR/ZTS/disable
+
+elif [ -d $MODDIR/Pulsar_Engine ]; then
+ui_print "[*] Pulsar Engine Module is present, disabled for security purposes."
+    touch $MODDIR/Pulsar_Engine/disable
+
+elif [ -d $MODDIR/ktweak ]; then
+ui_print "[*] KTweak Module is present, disabled for security purposes."
+    touch $MODDIR/ktweak/disable
+
+elif [ -d $MODDIR/high_perf_dac ]; then
+ui_print "[*] HIGH PERFORMANCE Module is present, disabled for security purposes."
+touch $MODDIR/high_perf_dac/disable
+
+elif [ -d $MODDIR/fkm_spectrum_injector ]; then
+ui_print "[*] FKM Injector Module is present, disabled for security purposes."
+touch $MODDIR/fkm_spectrum_injector/disable
+
+elif [ -d $MODDIR/toolbox8 ]; then
+ui_print "[*] Pandora's Box Module is present, disabled for security purposes."
+touch $MODDIR/MAGNETAR/disable
+
+elif [ -d $MODDIR/lazy ]; then
+ui_print "[*] Lazy Tweaks Module is present, disabled for security purposes."
+touch $MODDIR/lazy/disable
+
+elif [ "$(pm list package ktweak)" ]; then
+ui_print "[*] KTweak App is present, uninstall it to prevent conflicts."
+
+elif [ "$(pm list package kitana)" ]; then
+ui_print "[*] Kitana App is present, uninstall it to prevent conflicts."
+
+elif [ "$(pm list package magnetarapp)" ]; then
+ui_print "[*] MAGNETAR App is present, uninstall it to prevent conflicts."
+
+elif [ "$(pm list package lsandroid)" ]; then
+ui_print "[*] LSpeed App is present, uninstall it to prevent conflicts."
+
+elif [ "$(pm list package feravolt)" ]; then
+ui_print "[*] FDE.AI App is present, uninstall it to prevent conflicts."
+    fi
+ ui_print "[*] Extracting ThermodX files..."
+ sleep 1.5
+}
+
+# Load Vol Key Selector
 . $TMPDIR/addon/Volume-Key-Selector/install.sh
 
-# Modify this section according to your needs.
-ui_print "[!] installing modded Thermal engine..."
-ui_print "[?] Select your device CPU model"
- sleep 0.2
-ui_print "[1] SDM 720G"
- sleep 0.2
-ui_print "[2] SDM 660 (MAY WORK ON ALL 600 Family)"
- sleep 0.2
-ui_print "[3] SDM 430 (MSM8937)"
- sleep 0.2
-ui_print "[4] Cancel."
- sleep 0.5
-ui_print "[*] Select which you want"
+
+prepare_thermals_en(){
+ui_print "[!] installing modded Thermal engine."
+sleep 1.5
 ui_print "[*] Volume + = Switch × Volume - = Select "
-ui_print "[*] Select which you want:"
+sleep 1.5
+ui_print "[1] SDM 720G"
+sleep 0.8
+ui_print "[2] SDM 660 "
+sleep 0.8
+ui_print "[3] SDM 430 'MSM8937' "
+sleep 0.8
+ui_print "[4] SDM 820"
+sleep 0.8
+ui_print "[5] Cancel."
+sleep 0.8
+ui_print "[*] Select which your device cpu model:"
 SM=1
 while true
 do
-ui_print "  $SM"
-if $VKSEL 
+ui_print "   $SM"
+if $VKSEL
 then
 SM=$((SM + 1))
-else 
+else
 break
 fi
-if [ $SM -gt 4 ]
+if [ $SM -gt 2 ]
 then
 SM=1
 fi
 done
 
-case $SM in		
-1) Name="SDM720G "; cp -af $TMPDIR/Thermal720g/* $MODPATH/system && rm -rf $TMPDIR/Thermal660 && rm -rf $TMPDIR/Thermal430;;
-2) Name="SDM660 "; cp -af $TMPDIR/Thermal660/* $MODPATH/system && rm -rf $TMPDIR/Thermal720g && rm -rf $TMPDIR/Thermal430;;
-3) Name="SDM430 "; cp -af $TMPDIR/Thermal430/* $MODPATH/system && rm -rf $TMPDIR/Thermal660 && rm -rf $TMPDIR/Thermal720g;;
-4) Name="Cancelled."; rm -rf $TMPDIR/Thermal660 && rm -rf $TMPDIR/Thermal720g && rm -rf $TMPDIR/Thermal430 && rm -rf $TMPDIR/Thermal860 ;;
-esac
-ui_print "[*] Selected Thermal for : $FCTEXTAD1 "
-
-if [ "$FCTEXTAD1" = "Name" ]
-then
-fi
-
-sleep 0.2
-ui_print "[?] Do you want kernel tweaks"
-sleep 0.2
-ui_print "[1] Yes, Sure "
-sleep 0.2
-ui_print "[2] No, Thanks "
-sleep 0.2
-ui_print "[*] Select which you want"
-SM2=1
-while true
-do
-ui_print "  $SM2"
-if $VKSEL 
-then
-SM2=$((SM2 + 1))
-else 
-break
-fi
-if [ $SM2 -gt 2 ]
-then
-SM=1
-fi
-done
-
-case $SM2 in
-1) Name1=" Yes ";;
-2) Name1=" No "; rm -rf $MODPATH/system/bin/XPERF;;
+case $SM in
+1) FCTEXTAD1="SDM720G";;
+2) FCTEXTAD1="SDM710";;
+3) FCTEXTAD1="SDM660";;
+4) FCTEXTAD1="SDM430";;
+5) FCTEXTAD1="SDM820";;
+6) FCTEXTAD1="*Cancelled*";;
 esac
 
-if [ "$FCTEXTAD2" = "Name1" ]
-then
-fi
+ui_print "[*] Selected: $FCTEXTAD1 "
 
-ui_print "[*] Kernel Tweaks Selected: $Name1"
-sleep 0.2
-ui_print "[?] Do you want Network tweaks"
-sleep 0.2
-ui_print "[1] Yes, Sure "
-sleep 0.2
-ui_print "[2] No, Thanks "
-sleep 0.2
-ui_print "[*] Select which you want"
+if [[ "$FCTEXTAD1" == "SDM720G" ]]; then
+unzip -o "$ZIPFILE" 'Thermal720g/*' -d "$TMPDIR" >&2 && cp -af "$TMPDIR"/Thermal720g/* "$MODPATH"/system
+
+elif [[ "$FCTEXTAD1" == "SDM710" ]]; then
+unzip -o "$ZIPFILE" 'Thermal710/*' -d "$TMPDIR" >&2 && cp -af "$TMPDIR"/Thermal710/* "$MODPATH"/system
+
+elif [[ "$FCTEXTAD1" == "SDM660" ]]; then
+unzip -o "$ZIPFILE" 'Thermal660/*' -d "$TMPDIR" >&2 && cp -af "$TMPDIR"/Thermal660/* "$MODPATH"/system
+
+elif [[ "$FCTEXTAD1" == "SDM430" ]]; then
+unzip -o "$ZIPFILE" 'Thermal430/*' -d "$TMPDIR" >&2 && cp -af "$TMPDIR"/Thermal430/* "$MODPATH"/system
+
+elif [[ "$FCTEXTAD1" == "SDM820" ]]; then
+unzip -o "$ZIPFILE" 'Thermal820/*' -d "$TMPDIR" >&2 && cp -af "$TMPDIR"/Thermal820/* "$MODPATH"/system
+fi
+}
+
+XPERF_en(){
+ui_print "[!] installing Kernel Tweaks."
+ui_print "[1] Continue."
+sleep 0.8
+ui_print "[2] Cancel."
+sleep 0.8
+ui_print "[*] Select which you want:"
 SM3=1
 while true
 do
-ui_print "  $SM2"
-if $VKSEL 
+ui_print "   $SM3"
+if $VKSEL
 then
 SM3=$((SM3 + 1))
-else 
+else
 break
 fi
 if [ $SM3 -gt 2 ]
@@ -153,31 +201,82 @@ fi
 done
 
 case $SM3 in
-1) Name2=" Yes ";;
-2) Name2=" No "; rm -rf $MODPATH/system/bin/XNET;;
+1) FCTEXTAD3="Yes.";;
+2) FCTEXTAD3="*Cancelled*";;
 esac
 
-if [ "$FCTEXTAD3" = "Name2" ]
-then
+ui_print "[*] Selected: $FCTEXTAD3 "
+
+if [[ "$FCTEXTAD3" == "*Cancelled*" ]]; then
+rm -rf "$TMPDIR"/system/bin/XPERF
 fi
 
-ui_print "[*] Network Tweaks Selected: $Name1"
+if [[ "$FCTEXTAD3" == "Yes." ]]; then
+true
+fi
+}
 
-# Input some notes here about module or any other info
-ui_print "[!] Notes: "
+XNET_en(){
+ui_print "[!] installing Network Tweaks."
+ui_print "[1] Continue."
+sleep 0.8
+ui_print "[2] Cancel."
+sleep 0.8
+ui_print "[*] Select which you want:"
+SM1=1
+while true
+do
+ui_print "   $SM1"
+if $VKSEL
+then
+SM1=$((SM1 + 1))
+else
+break
+fi
+if [ $SM1 -gt "2" ]
+then
+SM1=1
+fi
+done
+
+case $SM1 in
+1) FCTEXTAD2="Yes.";;
+2) FCTEXTAD2="*Cancelled*";;
+esac
+
+ui_print "[*] Selected: $FCTEXTAD2 "
+
+if [[ "$FCTEXTAD2" == "*Cancelled*" ]]; then
+rm -rf "$TMPDIR"/system/bin/XNET
+fi
+
+if [[ "$FCTEXTAD2" == "Yes." ]]; then
+true
+fi
+}
+
+mod_info_print_en
+prepare_for_confliction_en
+XNET_en
+XPERF_en
+
+sleep 1
+ui_print "[*] ThermodX has been installed successfully."
+sleep 1.5
+ui_print "[-] Additional Notes:"
 ui_print "[*] Reboot is required"
-sleep 0.5
-ui_print "[*] Do not use Thermod.X with other optimizer modules"
+ui_print "[*] Do not use ThermodX with other optimizer modules"
 ui_print "[*] Report issues to @thermxocg on Telegram"
 ui_print "[*] You can find me at imUsiF12 @ telegram for direct support"
-ui_print "[*] Much Love 💕 , Happy Gaming"
-sleep 1
-
-}
+sleep 4
 
 # Set permissions
-set_permissions() {
-  set_perm_recursive "$MODPATH" 0 0 0755 0644
-  set_perm_recursive "$MODPATH/system/bin" 0 0 0755 0755
-
+set_permissions(){
+set_perm_recursive "$MODPATH" 0 0 0755 0644
+set_perm_recursive "$MODPATH/system/bin" 0 0 0755 0755
+set_perm_recursive "$MODPATH/system/vendor/etc" 0 0 0755 0755
+set_perm_recursive "$MODPATH/script" 0 0 0755 0755
+set_perm_recursive "$MODPATH/bin" 0 0 0755 0755
 }
+
+set_permissions
