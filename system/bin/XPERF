@@ -1,18 +1,12 @@
 #!/system/bin/sh
-#ThermodX 1301 R Beta program
-
-#Gathering device details
-echo "[*] DEVICE BRAND = $(getprop ro.product.brand) " >> /storage/emulated/0/XCORE/TX.log
-echo "[*] DEVICE MODEL = $(getprop ro.product.model) " >> /storage/emulated/0/XCORE/TX.log
-echo "[*] DEVICE NAME =  $(getprop ro.product.device) " >> /storage/emulated/0/XCORE/TX.log
-echo "[*] ROM = $(getprop ro.build.display.id) " >> /storage/emulated/0/XCORE/TX.log
+#ThermodX™ 1301 R Beta program
 
 # Reducing Some System load
 echo "[*] Reducing system loads..." >> /storage/emulated/0/XCORE/TX.log
 if [ -e "/sys/module/debug/parameters/enable_event_log" ];then
  echo "0" > /sys/module/debug/parameters/enable_event_log
 fi
-if [ -e "/sys/module/glink/parameters/debug_mask";then
+if [ -e "/sys/module/glink/parameters/debug_mask" ];then
  echo "0" > /sys/module/glink/parameters/debug_mask
 fi
 if [ -e "/sys/module/usb_bam/parameters/enable_event_log" ];then
@@ -197,3 +191,5 @@ write /sys/power/pm_freeze_timeout 25000
 
 # Disable exception-trace and reduce some overhead that is caused by a certain amount and percent of kernel logging, in case your kernel of choice have it enabled;
 write /proc/sys/debug/exception-trace 0
+
+exit 0

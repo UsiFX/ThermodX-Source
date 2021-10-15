@@ -29,10 +29,12 @@ REPLACE="
 "
 
 # Set what you want to be displayed on header on installation process
-mod_info_print() {
-awk '{print}' "$MODPATH"/TXBanner
+mod_info_print_en(){
+awk '{print}' "$MODPATH"/tx_banner
 ui_print ""
+ui_print "[⚡] POWERFUL THERMAL & TWEAKER [⚡]"
 }
+
 
 # Default extraction path is to $MODPATH. Change the logic to whatever you want.
 unzip -o "$ZIPFILE" 'addon/*' -d $TMPDIR >&2
@@ -41,6 +43,7 @@ unzip -o "$ZIPFILE" 'script/*' -d $MODPATH >&2
 unzip -o "$ZIPFILE" 'bin/*' -d $MODPATH >&2
 
 # Preparing test and rest settings
+prepare_for_confliction_en(){
 ui_print "[*] Preparing..."
 sleep 1.5
 if [ -d $MODDIR/KTSR ]; then
@@ -108,11 +111,13 @@ ui_print "[*] FDE.AI App is present, uninstall it to prevent conflicts."
     fi
  ui_print "[*] Extracting ThermodX files..."
  sleep 1.5
+}
 
 # Load Vol Key Selector
 . $TMPDIR/addon/Volume-Key-Selector/install.sh
 
 
+prepare_thermals_en(){
 ui_print "[!] installing modded Thermal engine."
 sleep 1.5
 ui_print "[*] Volume + = Switch × Volume - = Select "
@@ -138,7 +143,7 @@ SM=$((SM + 1))
 else
 break
 fi
-if [ $SM -gt 5 ]
+if [ $SM -gt 2 ]
 then
 SM=1
 fi
@@ -146,16 +151,20 @@ done
 
 case $SM in
 1) FCTEXTAD1="SDM720G";;
-2) FCTEXTAD1="SDM660";;
-3) FCTEXTAD1="SDM430";;
-4) FCTEXTAD1="SDM820";;
-5) FCTEXTAD1="*Cancelled*";;
+2) FCTEXTAD1="SDM710";;
+3) FCTEXTAD1="SDM660";;
+4) FCTEXTAD1="SDM430";;
+5) FCTEXTAD1="SDM820";;
+6) FCTEXTAD1="*Cancelled*";;
 esac
 
 ui_print "[*] Selected: $FCTEXTAD1 "
 
 if [[ "$FCTEXTAD1" == "SDM720G" ]]; then
 unzip -o "$ZIPFILE" 'Thermal720g/*' -d "$TMPDIR" >&2 && cp -af "$TMPDIR"/Thermal720g/* "$MODPATH"/system
+
+elif [[ "$FCTEXTAD1" == "SDM710" ]]; then
+unzip -o "$ZIPFILE" 'Thermal710/*' -d "$TMPDIR" >&2 && cp -af "$TMPDIR"/Thermal710/* "$MODPATH"/system
 
 elif [[ "$FCTEXTAD1" == "SDM660" ]]; then
 unzip -o "$ZIPFILE" 'Thermal660/*' -d "$TMPDIR" >&2 && cp -af "$TMPDIR"/Thermal660/* "$MODPATH"/system
@@ -165,9 +174,10 @@ unzip -o "$ZIPFILE" 'Thermal430/*' -d "$TMPDIR" >&2 && cp -af "$TMPDIR"/Thermal4
 
 elif [[ "$FCTEXTAD1" == "SDM820" ]]; then
 unzip -o "$ZIPFILE" 'Thermal820/*' -d "$TMPDIR" >&2 && cp -af "$TMPDIR"/Thermal820/* "$MODPATH"/system
+fi
+}
 
-elif [[ "$FCTEXTAD1" == "*Cancelled*" ]]; then
-
+XPERF_en(){
 ui_print "[!] installing Kernel Tweaks."
 ui_print "[1] Continue."
 sleep 0.8
@@ -201,10 +211,12 @@ if [[ "$FCTEXTAD3" == "*Cancelled*" ]]; then
 rm -rf "$TMPDIR"/system/bin/XPERF
 fi
 
-elif [[ "$FCTEXTAD3" == "Yes." ]]; then
+if [[ "$FCTEXTAD3" == "Yes." ]]; then
 true
 fi
+}
 
+XNET_en(){
 ui_print "[!] installing Network Tweaks."
 ui_print "[1] Continue."
 sleep 0.8
@@ -241,6 +253,13 @@ fi
 if [[ "$FCTEXTAD2" == "Yes." ]]; then
 true
 fi
+}
+
+mod_info_print_en
+prepare_for_confliction_en
+XNET_en
+XPERF_en
+
 sleep 1
 ui_print "[*] ThermodX has been installed successfully."
 sleep 1.5
@@ -252,10 +271,12 @@ ui_print "[*] You can find me at imUsiF12 @ telegram for direct support"
 sleep 4
 
 # Set permissions
-set_permissions() {
+set_permissions(){
 set_perm_recursive "$MODPATH" 0 0 0755 0644
 set_perm_recursive "$MODPATH/system/bin" 0 0 0755 0755
 set_perm_recursive "$MODPATH/system/vendor/etc" 0 0 0755 0755
 set_perm_recursive "$MODPATH/script" 0 0 0755 0755
 set_perm_recursive "$MODPATH/bin" 0 0 0755 0755
 }
+
+set_permissions

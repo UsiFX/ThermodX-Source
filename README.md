@@ -15,6 +15,7 @@
 ## Supported Thermal engines (as of now):
 #### > Snapdragon 820
 #### > Snapdragon 720G
+#### > Snapdragon 710
 #### > Snapdragon 660
 #### > Snapdragon 430
 #### > Snapdragon 425
