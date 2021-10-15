@@ -76,7 +76,7 @@ MODPATH=$MODULEROOT/$MODID
 MODNAME=$(grep_prop name $TMPDIR/module.prop)
 
 # Create mod paths
-rm -rf $MODPATH 2>/dev/null
+rm -rf "$MODPATH" 2>/dev/null
 mkdir -p $MODPATH
 
 ##############
@@ -84,7 +84,7 @@ mkdir -p $MODPATH
 ##############
 
 # Extract modname_print to $MODPATH
-unzip -o "$ZIPFILE" TXBanner service.sh system.prop -d $MODPATH >&2
+unzip -o "$ZIPFILE" tx_banner service.sh system.prop -d $MODPATH >&2
 
 if is_setup_script; then
 unzip -oj "$ZIPFILE" module.prop setup.sh uninstall.sh -d $TMPDIR >&2

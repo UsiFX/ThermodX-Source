@@ -1,7 +1,7 @@
 #!/sbin/sh
-###########################
-# MMT - BOURNE SETUP SCRIPT
-###########################
+###############################
+#ThermodX™ 1301 R Beta program
+###############################
 
 # Config Vars
 # Choose if you want to skip mount for your module or not.
@@ -23,10 +23,6 @@ DEBUG=true
 
 # Custom var
 MODDIR=/data/adb/modules
-
-# Input options which you want to be replaced
-REPLACE="
-"
 
 # Set what you want to be displayed on header on installation process
 mod_info_print_en(){
@@ -113,6 +109,9 @@ ui_print "[*] FDE.AI App is present, uninstall it to prevent conflicts."
  sleep 1.5
 }
 
+mod_info_print_en
+prepare_for_confliction_en
+
 # Load Vol Key Selector
 . $TMPDIR/addon/Volume-Key-Selector/install.sh
 
@@ -122,15 +121,17 @@ ui_print "[!] installing modded Thermal engine."
 sleep 1.5
 ui_print "[*] Volume + = Switch × Volume - = Select "
 sleep 1.5
+ui_print "[2] SDM 710"
+sleep 0.8
 ui_print "[1] SDM 720G"
 sleep 0.8
-ui_print "[2] SDM 660 "
+ui_print "[3] SDM 660 "
 sleep 0.8
-ui_print "[3] SDM 430 'MSM8937' "
+ui_print "[4] SDM 430 'MSM8937' "
 sleep 0.8
-ui_print "[4] SDM 820"
+ui_print "[5] SDM 820"
 sleep 0.8
-ui_print "[5] Cancel."
+ui_print "[6] Cancel."
 sleep 0.8
 ui_print "[*] Select which your device cpu model:"
 SM=1
@@ -143,7 +144,7 @@ SM=$((SM + 1))
 else
 break
 fi
-if [ $SM -gt 2 ]
+if [ $SM -gt 6 ]
 then
 SM=1
 fi
@@ -255,8 +256,8 @@ true
 fi
 }
 
-mod_info_print_en
-prepare_for_confliction_en
+
+prepare_thermals_en
 XNET_en
 XPERF_en
 
@@ -267,7 +268,7 @@ ui_print "[-] Additional Notes:"
 ui_print "[*] Reboot is required"
 ui_print "[*] Do not use ThermodX with other optimizer modules"
 ui_print "[*] Report issues to @thermxocg on Telegram"
-ui_print "[*] You can find me at imUsiF12 @ telegram for direct support"
+ui_print "[*] find me at imUsiF12 @ telegram for direct support"
 sleep 4
 
 # Set permissions
