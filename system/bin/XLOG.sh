@@ -7,7 +7,7 @@ bb="/data/adb/magisk/busybox"
 MODPATH="/data/adb/modules/ThermodX.ADB/"
 
 # Fetch info
-VER=$($bb grep versioncodename= "${MODPATH}module.prop" | $bb sed "s/version=//")
+VER=$($bb grep versioncodename= "${MODPATH}module.prop" | $bb sed "s/versioncodename=//")
 CODENAME=$($bb grep codeName= "${MODPATH}module.prop" | $bb sed "s/codeName=//")
 STATUS=$($bb grep Status= "${MODPATH}module.prop" | $bb sed "s/Status=//")
 AUTHOR=$($bb grep author= "${MODPATH}module.prop" | $bb sed "s/author=//")

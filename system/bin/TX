@@ -1,0 +1,35 @@
+#!/system/bin/sh
+# ThermodX™ 1301 R Beta program
+# Author: USIF (USIFX @ github)
+# Credits : p3dr0zzz (pedrozzz0 @ github), LOOPER (iamlooper @ github)
+# Don't take any work from here until you maintain proper credits of respective devs.
+
+LOG="/storage/emulated/0/XCORE/TX_menu.log"
+MODPATH="/data/adb/modules/ThermodX.ADB/"
+bb="/data/adb/magisk/busybox"
+
+if [ -d ${LOG} ]; then
+ rm ${LOG}
+fi
+
+echo -e "[~] ThermodX™ CLI is not stable at all, Do You wish to continue? (y/n)"
+echo -e "[Enter]: \c"
+read -r option
+case $option in
+ y)
+  clear
+  return
+  # Start main
+  $bb sh "${MODPATH}script/TX.sh"
+ ;;
+ n)
+  echo -e "[*] See you later, Dont worry if there is an update you will be able to update here."
+  sleep 2
+  exit 0
+ ;;
+ *)
+  echo -e "[!] Response error, Please type 'y' to contiue"
+  echo -e "[*] or 'n' to exit"
+  sh ${MODPATH}/system/bin/TX
+ ;;
+esac

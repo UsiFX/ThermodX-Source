@@ -1,0 +1,16 @@
+#!/sbin/sh
+
+set +x
+
+spinner() {
+	PID=$!
+	h=0
+	anim='-\|/'
+	while [[ -d /proc/$PID ]]; do
+                sleep 0
+		h=$(((h + 1) % 4))
+		printf "\r${@} [${anim:h:1}]"
+	done        printf "test"
+}
+
+spinner

@@ -30,8 +30,8 @@
 #### Will be available in final release :D
 -------------------------------------------------------------------------------------
 ## Official Support:
- <a href="https://t.me/ThermodX">Official Telegram Channel</a>
+ <a href="https://t.me/xprjkts">Official Telegram Channel</a>
  
- <a href="https://t.me/Thermxocg">Official Telegram Chat</a>
+ <a href="https://t.me/xprjkts_chat">Official Telegram Chat</a>
  
  <a href="https://t.me/imUsif12">Telegram Account</a>
