@@ -73,6 +73,12 @@ mkdir -p "$MODPATH"
 # Extract to $MODPATH
 unzip -o "$ZIPFILE" -d "$MODPATH" >&2
 
+# Extract compressed files
+[ -f "$MODPATH/bin.tar.xz" ] && tar -xf "$MODPATH/bin.tar.xz" -C "$MODPATH" >&2
+[ -f "$MODPATH/script.tar.xz" ] && tar -xf "$MODPATH/script.tar.xz" -C "$MODPATH" >&2
+[ -f "$MODPATH/addon.tar.xz" ] && tar -xf "$MODPATH/addon.tar.xz" -C "$MODPATH" >&2
+[ -f "$MODPATH/thermal.tar.xz" ] && tar -xf "$MODPATH/thermal.tar.xz" -C "$MODPATH" >&2
+
 # Load install script
 . "$MODPATH/setup.sh"
 
