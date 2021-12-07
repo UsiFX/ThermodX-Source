@@ -418,7 +418,7 @@ prepare_thermals_en(){
       fi
      done
  
-     case $SM3 in
+     case $SM1 in
       1) FCTEXTAD1="Yes.";;
       2) FCTEXTAD1="*Cancelled*";;
      esac
@@ -429,7 +429,7 @@ prepare_thermals_en(){
       unzip -o "$ZIPFILE" 'Thermal720g/*' -d "$TMPDIR" >&2 && cp -af "$TMPDIR"/Thermal720g/* "$MODPATH"/system
      fi
 
- elif [[ $(getprop ro.board.platform) == "SDM710" ]]; then
+ elif [[ $(getprop ro.board.platform) == "sdm710" ]]; then
      ui_print "[*] Detected Device SoC: SDM710"
      ui_print "[?] Would You like to Continue"
      ui_print "[1] Continue."
@@ -453,7 +453,7 @@ prepare_thermals_en(){
       fi
      done
  
-     case $SM3 in
+     case $SM1 in
       1) FCTEXTAD1="Yes.";;
       2) FCTEXTAD1="*Cancelled*";;
      esac
@@ -464,7 +464,7 @@ prepare_thermals_en(){
       unzip -o "$ZIPFILE" 'Thermal710/*' -d "$TMPDIR" >&2 && cp -af "$TMPDIR"/Thermal710/* "$MODPATH"/system
      fi
 
- elif [[ $(getprop ro.board.platform) == "SDM660" ]]; then
+ elif [[ $(getprop ro.board.platform) == "sdm660" ]]; then
      ui_print "[*] Detected Device SoC: SDM660"
      ui_print "[?] Would You like to Continue"
      ui_print "[1] Continue."
@@ -488,7 +488,7 @@ prepare_thermals_en(){
       fi
      done
  
-     case $SM3 in
+     case $SM1 in
       1) FCTEXTAD1="Yes.";;
       2) FCTEXTAD1="*Cancelled*";;
      esac
@@ -523,7 +523,7 @@ prepare_thermals_en(){
       fi
      done
  
-     case $SM3 in
+     case $SM1 in
       1) FCTEXTAD1="Yes.";;
       2) FCTEXTAD1="*Cancelled*";;
      esac
@@ -558,7 +558,7 @@ prepare_thermals_en(){
       fi
      done
  
-     case $SM3 in
+     case $SM1 in
       1) FCTEXTAD1="Yes.";;
       2) FCTEXTAD1="*Cancelled*";;
      esac
@@ -592,7 +592,7 @@ prepare_thermals_en(){
       fi
      done
  
-     case $SM3 in
+     case $SM1 in
       1) FCTEXTAD1="Yes.";;
       2) FCTEXTAD1="*Cancelled*";;
      esac
@@ -653,17 +653,17 @@ XNET_en(){
   ui_print "   $SM1"
   if $VKSEL
   then
-   SM1=$((SM1 + 1))
+   SM2=$((SM2+ 1))
   else
    break
   fi
-  if [ $SM1 -gt "2" ]
+  if [ $SM2 -gt "2" ]
   then
    SM1=1
   fi
  done
  
- case $SM1 in
+ case $SM2 in
   1) FCTEXTAD2="Yes.";;
   2) FCTEXTAD2="*Cancelled*";;
  esac
@@ -779,7 +779,7 @@ prepare_thermals_ar(){
       fi
      done
  
-     case $SM3 in
+     case $SM1 in
       1) FCTEXTAD1="نعم.";;
       2) FCTEXTAD1="*تم الالغاء*";;
      esac
@@ -790,7 +790,7 @@ prepare_thermals_ar(){
       unzip -o "$ZIPFILE" 'Thermal720g/*' -d "$TMPDIR" >&2 && cp -af "$TMPDIR"/Thermal720g/* "$MODPATH"/system
      fi
 
- elif [[ $(getprop ro.board.platform) == "SDM710" ]]; then
+ elif [[ $(getprop ro.board.platform) == "sdm710" ]]; then
      ui_print "[*] نوع المعالج: SDM710"
      ui_print "[?] هل تود المتابعة"
      ui_print "[1] نعم."
@@ -814,7 +814,7 @@ prepare_thermals_ar(){
       fi
      done
  
-     case $SM3 in
+     case $SM1 in
       1) FCTEXTAD1="نعم.";;
       2) FCTEXTAD1="*تم الالغاء*";;
      esac
@@ -825,7 +825,7 @@ prepare_thermals_ar(){
       unzip -o "$ZIPFILE" 'Thermal710/*' -d "$TMPDIR" >&2 && cp -af "$TMPDIR"/Thermal710/* "$MODPATH"/system
      fi
 
- elif [[ $(getprop ro.board.platform) == "SDM660" ]]; then
+ elif [[ $(getprop ro.board.platform) == "sdm660" ]]; then
      ui_print "[*] نوع المعالج: SDM660"
      ui_print "[?] هل تود المتابعة"
      ui_print "[1] نعم."
@@ -849,7 +849,7 @@ prepare_thermals_ar(){
       fi
      done
  
-     case $SM3 in
+     case $SM1 in
       1) FCTEXTAD1="نعم.";;
       2) FCTEXTAD1="*تم الالغاء*";;
      esac
@@ -884,7 +884,7 @@ prepare_thermals_ar(){
       fi
      done
  
-     case $SM3 in
+     case $SM1 in
       1) FCTEXTAD1="نعم.";;
       2) FCTEXTAD1="*تم الالغاء*";;
      esac
@@ -919,13 +919,13 @@ prepare_thermals_ar(){
       fi
      done
  
-     case $SM3 in
-      1) FCTEXTAD1="Yes.";;
-      2) FCTEXTAD1="*Cancelled*";;
+     case $SM1 in
+      1) FCTEXTAD1="نعم.";;
+      2) FCTEXTAD1="*تم الإلغاء*";;
      esac
  
      ui_print "[*] تم اختيار: $FCTEXTAD1 "
-     if [[ "$FCTEXTAD1" == "Yes." ]]; then
+     if [[ "$FCTEXTAD1" == "نعم." ]]; then
       setprop persist.thermodx.thermal.mode extreme
       unzip -o "$ZIPFILE" 'Thermal820/*' -d "$TMPDIR" >&2 && cp -af "$TMPDIR"/Thermal820/* "$MODPATH"/system
      fi
@@ -953,7 +953,7 @@ prepare_thermals_ar(){
       fi
      done
  
-     case $SM3 in
+     case $SM1 in
       1) FCTEXTAD1="نعم.";;
       2) FCTEXTAD1="*Cancelled*";;
      esac
