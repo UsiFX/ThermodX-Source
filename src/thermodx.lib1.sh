@@ -15,9 +15,9 @@ console_print()
 	while getopts ":n:e:w:" opt
 	do
 		case "${opt}" in
-			n) echo -n "[*] $2\n" ;;
-			e) echo -n "[×] $2\n" ;;
-			w) echo -n "[!] $2\n" ;;
+			n) printf "[*] $2 \n" ;;
+			e) printf "[×] $2 \n" ;;
+			w) printf "[!] $2 \n" ;;
 		esac
 	done
 }
