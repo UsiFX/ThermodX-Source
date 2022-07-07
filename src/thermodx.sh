@@ -21,16 +21,23 @@
 export THERMODX_VERSION=1401
 
 MODPATH="/data/adb/modules/ThermodX"
-THERMAL_SOURCES=(
-	/system/vendor/etc/thermal*.conf
-	/vendor/etc/thermal*.conf
-	/etc/thermal*.conf
-)
+THERMAL_SOURCES=$(echo /system/vendor/etc/thermal*.conf /vendor/etc/thermal*.conf 2>&1)
 TARGET_COMPATIBLE=true
+TARGET_DEV_MODE=true
+
+source $(pwd)/thermodx.lib1.sh
 
 ##########
 # init
 ##########
+
+if [ ${TARGET_DEV_MODE} == 'true' ]; then
+	set -x
+	if [ ${MODPATH} != *$(pwd)* ]; then
+		typeset -r MODPATH=$(pwd)
+		__setup_workspace
+	fi
+fi
 
 __setup_workspace()
 {
@@ -63,3 +70,25 @@ __compatible_check()
 		TARGET_COMPATIBLE=false
 	fi
 }
+
+
+__print_help()
+{
+cat <<EOF
+usage: thermodx [-v | --version] [-h | --help]
+
+These are common ThermodX arguments used for every situation
+[WIP]
+
+EOF
+}
+
+if [ $# -eq "0" ] && tty -s
+then
+	__print_help
+	else
+		case $# in
+			"-h"|"-help") __print_help ;;
+			*) console_print -w "$0: '$#' is not thermodx command, See 'thermodx --help'." ;;
+		esac
+fi
