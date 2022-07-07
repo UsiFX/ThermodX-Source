@@ -1,9 +1,8 @@
-id=ThermodX.ADB
-name=Thermod.X ⚡️
+id=ThermodX
+name=ThermodX
 author=UsiFX @ Github
-version=[1.3][B3TA5🛠][RedStone]
-versioncodename=13013
-version1=1.3
+version=[1.4]
+versioncodename=1401
 description=Modded Thermal & Tweaks For better performance!
-codeName=RedStone
-Status=beta-5
+codeName=unknown
+Status=unknown

@@ -1,0 +1,9 @@
+
+# Personal plans file to let me
+# remember what i need to do here
+
+#- TODO
+	* define the tools and resources needed 
+	* fix common things
+	* make executables
+	* put initial makefile to package everything
