@@ -31,14 +31,6 @@ source $(pwd)/thermodx.lib1.sh
 # init
 ##########
 
-if [ ${TARGET_DEV_MODE} == 'true' ]; then
-	set -x
-	if [ ${MODPATH} != *$(pwd)* ]; then
-		typeset -r MODPATH=$(pwd)
-		__setup_workspace
-	fi
-fi
-
 __setup_workspace()
 {
 	if [ ! -d ${MODPATH}/.workspace ]; then
@@ -71,7 +63,6 @@ __compatible_check()
 	fi
 }
 
-
 __print_help()
 {
 cat <<EOF
@@ -83,12 +74,23 @@ These are common ThermodX arguments used for every situation
 EOF
 }
 
+if [[ ${TARGET_DEV_MODE} == 'true' ]]; then
+	set -x
+	if [ ${MODPATH} != *$(pwd)* ]; then
+		typeset -r MODPATH=$(pwd)
+		__setup_workspace
+	fi
+else
+	set +x
+fi
+
 if [ $# -eq "0" ] && tty -s
 then
 	__print_help
-	else
-		case $# in
-			"-h"|"-help") __print_help ;;
-			*) console_print -w "$0: '$#' is not thermodx command, See 'thermodx --help'." ;;
+else
+		case $* in
+			"-h"|"--help") __print_help ;;
+			"-v"|"--version") echo "ThermodX version 1.4.0.1" ;;
+			*) console_print -w "$0: '$*' is not thermodx command, See 'thermodx --help'." ;;
 		esac
 fi
